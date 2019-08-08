@@ -71,13 +71,13 @@ podTemplate(
 
                     ibmcloud cr login
 
-                    echo "Checking registry namespace: ${REGISTRY_NAMESPACE}"
+                    echo "Checking registry namespace"
                     NS=$( ibmcloud cr namespaces | grep ${REGISTRY_NAMESPACE} ||: )
                     if [[ -z "${NS}" ]]; then
-                        echo -e "Registry namespace ${REGISTRY_NAMESPACE} not found, creating it."
+                        echo -e "Registry namespace not found, creating it."
                         ibmcloud cr namespace-add ${REGISTRY_NAMESPACE}
                     else
-                        echo -e "Registry namespace ${REGISTRY_NAMESPACE} found."
+                        echo -e "Registry namespace found."
                     fi
 
                     echo -e "Existing images in registry"
@@ -85,7 +85,7 @@ podTemplate(
 
 
                     echo -e "=========================================================================================="
-                    echo -e "BUILDING CONTAINER IMAGE: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${BUILD_NUMBER}"
+                    echo -e "BUILDING CONTAINER IMAGE"
                     set -x
                     ibmcloud cr build -f Dockerfile.multistage -t ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${BUILD_NUMBER} .
 
