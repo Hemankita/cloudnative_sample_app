@@ -66,6 +66,8 @@ podTemplate(
                   string(credentialsId: 'ibm_cloud_api_key', variable: 'APIKEY')]) {
                 sh '''#!/bin/bash
 
+                    echo "I am in the build and push"
+
                     ibmcloud login -r ${REGION} --apikey ${APIKEY}
 
                     ibmcloud cr login
@@ -85,7 +87,7 @@ podTemplate(
 
                     echo -e "=========================================================================================="
                     echo -e "BUILDING CONTAINER IMAGE"
-                    
+
                     ibmcloud cr build -f Dockerfile.multistage -t ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${BUILD_NUMBER} .
 
                     echo -e "Available images in registry"
